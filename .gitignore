@@ -36,5 +36,8 @@ coverage/
 
 *.log
 
+.codex
+vite
+llm-fake-detector-frontend@0.1.0
 
 docs/项目背景.md

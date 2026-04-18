@@ -1,3 +1,4 @@
+from app.modules.detection.probes.behavior_probe import BehaviorProbe
 from app.modules.detection.probes.base import DetectionProbe
 from app.modules.detection.probes.error_probe import ErrorResponseProbe
 from app.modules.detection.probes.logprobs_probe import LogprobsProbe
@@ -12,5 +13,6 @@ def build_default_probes() -> list[DetectionProbe]:
         TokenizerProbe(),
         LogprobsProbe(),
         ResponseProbe(),
+        BehaviorProbe(),
         ErrorResponseProbe(),
     ]

@@ -194,7 +194,7 @@ function ResponseHeaders({ headers }: { headers: Record<string, unknown> }) {
   );
 }
 
-function ParameterCases({ cases }: { cases: Record<string, unknown> }) {
+function ProbeCases({ cases }: { cases: Record<string, unknown> }) {
   const entries = Object.entries(cases)
     .map(([name, value]) => [name, toRecord(value)] as const)
     .filter((entry): entry is readonly [string, Record<string, unknown>] => entry[1] !== null);
@@ -204,7 +204,7 @@ function ParameterCases({ cases }: { cases: Record<string, unknown> }) {
 
   return (
     <section className="result-section">
-      <strong>参数测试明细</strong>
+      <strong>用例明细</strong>
       <div className="case-grid">
         {entries.map(([name, value]) => {
           const responseHeaders = toRecord(value.response_headers);
@@ -212,10 +212,15 @@ function ParameterCases({ cases }: { cases: Record<string, unknown> }) {
             <article key={name} className="case-card">
               <div className="case-title">{formatLabel(name)}</div>
               <div className="case-meta">
+                {typeof value.status === "string" ? <span>{value.status}</span> : null}
                 <span>HTTP {String(value.status_code ?? "-")}</span>
                 {typeof value.http_version === "string" ? <span>{value.http_version}</span> : null}
                 {typeof value.tool_call_count === "number" ? <span>tool_calls {value.tool_call_count}</span> : null}
+                {typeof value.deviation_kind === "string" ? <span>{value.deviation_kind}</span> : null}
               </div>
+              {typeof value.observed_content === "string" ? (
+                <pre className="detail-value">{value.observed_content}</pre>
+              ) : null}
               {responseHeaders ? <ResponseHeaders headers={responseHeaders} /> : null}
             </article>
           );
@@ -311,7 +316,7 @@ function ProbeDetails({ finding }: { finding: ProbeFinding }) {
           </ul>
         </div>
       ) : null}
-      {cases ? <ParameterCases cases={cases} /> : null}
+      {cases ? <ProbeCases cases={cases} /> : null}
       {responseHeaders ? <ResponseHeaders headers={responseHeaders} /> : null}
       <GenericDetailGrid details={details} />
     </div>

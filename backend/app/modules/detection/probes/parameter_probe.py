@@ -39,7 +39,14 @@ class ParameterProbe(DetectionProbe):
             evidence=evidence,
             details={
                 "endpoint_url": runtime.adapter.endpoint_url,
-                "cases": {item["name"]: item["details"] for item in case_findings},
+                "cases": {
+                    item["name"]: {
+                        "status": item["status"],
+                        "evidence": item["evidence"],
+                        **item["details"],
+                    }
+                    for item in case_findings
+                },
             },
         )
 

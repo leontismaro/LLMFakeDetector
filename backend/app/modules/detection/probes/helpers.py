@@ -30,6 +30,7 @@ def classify_status_code(status_code: int) -> str:
 def build_response_metadata(response: AdapterResponse, endpoint_url: str) -> dict[str, Any]:
     metadata: dict[str, Any] = {
         "endpoint_url": endpoint_url,
+        "status_code": response.status_code,
         "http_version": response.http_version,
         "response_headers": extract_interesting_headers(response.response_headers),
     }
