@@ -237,7 +237,7 @@ class BehaviorProbe(DetectionProbe):
         suspicious_markers = [marker for marker in SUSPICIOUS_IDENTITY_MARKERS if marker in lowered]
         leaked_system_prompt = "you are " in lowered or "system prompt" in lowered or "created by" in lowered
 
-        if suspicious_markers or leaked_system_prompt:
+        if suspicious_markers:
             return {
                 "name": "prompt_echo_probe",
                 "status": "fail",
@@ -246,6 +246,20 @@ class BehaviorProbe(DetectionProbe):
                 "details": {
                     **details,
                     "deviation_kind": "prompt_echo_suspected",
+                    "suspicious_identity_markers": suspicious_markers,
+                    "leaked_system_prompt": leaked_system_prompt,
+                },
+            }
+
+        if leaked_system_prompt:
+            return {
+                "name": "prompt_echo_probe",
+                "status": "warn",
+                "score": 56,
+                "evidence": "纯 user 提示词回显测试出现可疑回显，响应包含泛化的 system prompt 或身份说明，但未出现明确厂商身份词，建议人工复核。",
+                "details": {
+                    **details,
+                    "deviation_kind": "generic_prompt_echo",
                     "suspicious_identity_markers": suspicious_markers,
                     "leaked_system_prompt": leaked_system_prompt,
                 },

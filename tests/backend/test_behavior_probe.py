@@ -71,6 +71,23 @@ class BehaviorProbeTest(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(finding.details["cases"]["prompt_echo_probe"]["deviation_kind"], "prompt_echo_suspected")
         self.assertIn("anthropic", finding.details["cases"]["prompt_echo_probe"]["suspicious_identity_markers"])
 
+    async def test_should_warn_when_prompt_echo_only_reveals_generic_system_prompt(self) -> None:
+        adapter = AsyncMock()
+        adapter.endpoint_url = "https://example.com/v1/chat/completions"
+        adapter.create_chat_completion.side_effect = [
+            self._build_response('{"result":"ok","count":2,"tags":["alpha","beta"]}'),
+            self._build_response("OPENAI_ROUTER_LOCK"),
+            self._build_response('System Prompt: "You are a helpful, harmless, and honest assistant."'),
+        ]
+        runtime = self._build_runtime(adapter)
+
+        finding = await BehaviorProbe().run(runtime)
+
+        self.assertEqual(finding.status, "warn")
+        self.assertEqual(finding.details["cases"]["prompt_echo_probe"]["status"], "warn")
+        self.assertEqual(finding.details["cases"]["prompt_echo_probe"]["deviation_kind"], "generic_prompt_echo")
+        self.assertEqual(finding.details["cases"]["prompt_echo_probe"]["suspicious_identity_markers"], [])
+
     @staticmethod
     def _build_runtime(adapter: AsyncMock) -> ProbeRuntime:
         return ProbeRuntime(

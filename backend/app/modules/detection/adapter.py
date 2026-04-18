@@ -30,6 +30,10 @@ class OpenAICompatibleAdapter:
         self._client = client
         self.endpoint_url = build_chat_completions_url(request.base_url)
 
+    @property
+    def client(self) -> httpx.AsyncClient:
+        return self._client
+
     async def create_chat_completion(
         self,
         *,
