@@ -1,0 +1,14 @@
+{
+  "chart_reasoning_case": {
+    "system_prompt": "You are a careful visual evaluation assistant. Answer with only the requested token and no explanation.",
+    "user_prompt": "Inspect the chart image. Which quarter has the highest bar? Reply with only one token: Q1, Q2, Q3, or Q4.",
+    "expected_answer": "Q4",
+    "asset_path": "vision/chart_reasoning_case.png"
+  },
+  "watermark_detail_case": {
+    "system_prompt": "You are a precise detail inspection assistant. Return only the requested hidden code with no extra text.",
+    "user_prompt": "Inspect the document image carefully. What is the hidden watermark code? Reply with only the code.",
+    "expected_answer": "NOVA-42",
+    "asset_path": "vision/watermark_detail_case.png"
+  }
+}

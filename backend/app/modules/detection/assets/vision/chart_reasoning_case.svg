@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+  <rect width="640" height="420" fill="#f7f4ee" />
+  <text x="320" y="44" text-anchor="middle" font-size="26" font-family="Arial" fill="#233142">Revenue by Quarter</text>
+  <line x1="80" y1="330" x2="560" y2="330" stroke="#38434f" stroke-width="3" />
+  <line x1="80" y1="90" x2="80" y2="330" stroke="#38434f" stroke-width="3" />
+  <rect x="120" y="240" width="70" height="90" rx="6" fill="#5b8ff9" />
+  <rect x="230" y="170" width="70" height="160" rx="6" fill="#61dDAa" />
+  <rect x="340" y="210" width="70" height="120" rx="6" fill="#f6bd16" />
+  <rect x="450" y="120" width="70" height="210" rx="6" fill="#e8684a" />
+  <text x="155" y="355" text-anchor="middle" font-size="22" font-family="Arial" fill="#233142">Q1</text>
+  <text x="265" y="355" text-anchor="middle" font-size="22" font-family="Arial" fill="#233142">Q2</text>
+  <text x="375" y="355" text-anchor="middle" font-size="22" font-family="Arial" fill="#233142">Q3</text>
+  <text x="485" y="355" text-anchor="middle" font-size="22" font-family="Arial" fill="#233142">Q4</text>
+  <text x="155" y="232" text-anchor="middle" font-size="18" font-family="Arial" fill="#233142">12</text>
+  <text x="265" y="162" text-anchor="middle" font-size="18" font-family="Arial" fill="#233142">21</text>
+  <text x="375" y="202" text-anchor="middle" font-size="18" font-family="Arial" fill="#233142">16</text>
+  <text x="485" y="112" text-anchor="middle" font-size="18" font-family="Arial" fill="#233142">27</text>
+</svg>

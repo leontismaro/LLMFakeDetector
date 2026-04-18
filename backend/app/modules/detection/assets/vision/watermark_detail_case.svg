@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+  <rect width="640" height="420" fill="#fbfaf7" />
+  <rect x="70" y="60" width="500" height="290" rx="12" fill="white" stroke="#d8d2c6" stroke-width="2" />
+  <text x="110" y="110" font-size="28" font-family="Arial" fill="#2b3340">Audit Memo</text>
+  <text x="110" y="148" font-size="18" font-family="Arial" fill="#4b5563">Route payment anomalies to the incident desk.</text>
+  <text x="110" y="180" font-size="18" font-family="Arial" fill="#4b5563">Escalate unresolved issues after 15 minutes.</text>
+  <text x="110" y="212" font-size="18" font-family="Arial" fill="#4b5563">Record every customer-visible impact before rollback.</text>
+  <text x="110" y="244" font-size="18" font-family="Arial" fill="#4b5563">Preserve all ledger traces for finance review.</text>
+  <text x="110" y="316" font-size="14" font-family="Arial" fill="#8c96a5">Reference sheet 7B</text>
+  <text x="500" y="340" text-anchor="end" font-size="12" font-family="Arial" fill="#cfd6df">internal copy</text>
+  <g transform="translate(318 216) rotate(-22)">
+    <text x="0" y="0" text-anchor="middle" font-size="36" font-family="Arial" fill="rgba(90,110,140,0.18)">NOVA-42</text>
+  </g>
+</svg>

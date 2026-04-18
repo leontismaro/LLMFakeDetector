@@ -1,0 +1,28 @@
+{
+  "needle_in_haystack": {
+    "system_prompt": "You are a context retrieval evaluation assistant. Read the full context carefully and answer with only the requested passphrase.",
+    "filler_unit": "Archive note {index}: The quarterly review mentions inventory balancing, shipment timing, and routine compliance reminders. This sentence is filler context for long-context evaluation.",
+    "canary_text": "Verification passphrase: Pineapple2024",
+    "user_prompt_template": "Below is a long archive. Somewhere inside it there is exactly one verification passphrase. Reply with only that passphrase and nothing else.\n\n{context}",
+    "expected_answer": "Pineapple2024",
+    "profiles": {
+      "small": {
+        "target_context_tokens": 4000,
+        "max_tokens": 32
+      },
+      "medium": {
+        "target_context_tokens": 12000,
+        "max_tokens": 32
+      },
+      "large": {
+        "target_context_tokens": 24000,
+        "max_tokens": 32
+      }
+    }
+  },
+  "long_output_probe": {
+    "system_prompt": "You are a careful structured output generator. Follow the requested format exactly.",
+    "user_prompt": "Output exactly 40 lines. Each line must follow the format row-XX: value-XX where XX is a two-digit number from 01 to 40. Do not add markdown fences, explanations, blank lines, or extra text.",
+    "expected_line_count": 40
+  }
+}

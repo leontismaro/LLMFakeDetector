@@ -1,0 +1,129 @@
+{
+  "complex_schema_case": {
+    "system_prompt": "You are a precise tool invocation planner. When a tool is available, call the tool directly with valid JSON arguments and no extra narration.",
+    "user_prompt": "Create an incident response plan for a sev1 payments outage in emea. Use exactly two contacts: Ava as lead and Noah as sre. Set mitigation.notify_customer to true, mitigation.eta_minutes to 15, and include the tags payments and rollback.",
+    "tool": {
+      "type": "function",
+      "function": {
+        "name": "schedule_incident_response",
+        "description": "Schedule a structured incident response workflow.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "severity": {
+              "type": "string",
+              "enum": ["sev1", "sev2", "sev3"]
+            },
+            "region": {
+              "type": "string",
+              "enum": ["amer", "emea", "apac"]
+            },
+            "contacts": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": {
+                    "type": "string",
+                    "enum": ["lead", "comms", "sre"]
+                  }
+                },
+                "required": ["name", "role"],
+                "additionalProperties": false
+              }
+            },
+            "mitigation": {
+              "type": "object",
+              "properties": {
+                "notify_customer": { "type": "boolean" },
+                "eta_minutes": { "type": "integer" }
+              },
+              "required": ["notify_customer", "eta_minutes"],
+              "additionalProperties": false
+            },
+            "tags": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string",
+                "enum": ["database", "latency", "payments", "rollback"]
+              }
+            }
+          },
+          "required": ["severity", "region", "contacts", "mitigation", "tags"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "expected_arguments": {
+      "severity": "sev1",
+      "region": "emea",
+      "contacts": [
+        { "name": "Ava", "role": "lead" },
+        { "name": "Noah", "role": "sre" }
+      ],
+      "mitigation": {
+        "notify_customer": true,
+        "eta_minutes": 15
+      },
+      "tags": ["payments", "rollback"]
+    }
+  },
+  "tool_selection_case": {
+    "system_prompt": "You are a routing evaluator. Choose the single best tool and emit only the tool call.",
+    "user_prompt": "Invoice INV-8842 was billed twice. Open a high-priority billing case for a duplicate charge and do not summarize the incident timeline.",
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "summarize_incident_timeline",
+          "description": "Summarize an operational incident timeline for reliability reviews.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "incident_id": { "type": "string" },
+              "audience": {
+                "type": "string",
+                "enum": ["internal", "customer"]
+              }
+            },
+            "required": ["incident_id", "audience"],
+            "additionalProperties": false
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "open_billing_case",
+          "description": "Open a billing support case for a customer payment issue.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "invoice_id": { "type": "string" },
+              "issue_type": {
+                "type": "string",
+                "enum": ["duplicate_charge", "refund_request", "invoice_missing"]
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["low", "medium", "high"]
+              }
+            },
+            "required": ["invoice_id", "issue_type", "priority"],
+            "additionalProperties": false
+          }
+        }
+      }
+    ],
+    "expected_tool_name": "open_billing_case",
+    "expected_arguments": {
+      "invoice_id": "INV-8842",
+      "issue_type": "duplicate_charge",
+      "priority": "high"
+    }
+  }
+}

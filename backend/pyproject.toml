@@ -17,3 +17,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-data]
 "app.modules.detection.prompts" = ["*.json"]
+"app.modules.detection.assets.vision" = ["*.svg", "*.png"]
